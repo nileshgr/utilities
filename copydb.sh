@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to copy one MySQL database to another while converting the destination database to InnoDB
+# Script to copy one MySQL database to another while converting the destination database to InnoDB (Operates on a copy)
 # Author: Nilesh Govindrajan <contact@nileshgr.com>
 
 DBUSER=''
