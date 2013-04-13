@@ -4,9 +4,9 @@ ob_start();
 header("Status: 200 OK");
 header("Content-Type: text/plain");
 echo "PHP Test - Success\n";
-$con = mysql_connect("localhost", "<username>", "<password>");
-if(!$con) {
-        echo "MySQL Error: " . mysql_error();
+$con = new mysqli("localhost", "<username>", "<password>");
+if($con->connect_errno) {
+        echo "MySQL Error: " . $con->connect_errno . " " . $con->connect_error;
         header("Status: 500 Error");
 }
 else {
