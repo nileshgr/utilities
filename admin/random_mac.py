@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
-''' RANDOM MAC ID GENERATOR FOR KVM
-''' KVM doesn't accept MAC IDs which don't start with 52:54
+'''
+RANDOM MAC ID GENERATOR FOR KVM
+KVM doesn't accept MAC IDs which don't start with 52:54
+'''
 
 import random
 
