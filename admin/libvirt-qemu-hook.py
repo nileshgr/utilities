@@ -1,5 +1,25 @@
 #!/usr/bin/python
 
+'''
+This script was written for Python 3.
+I do not know if it will work on Python 2.
+'''
+
+'''
+LibVirt hook for setting up port forwards when using 
+NATed networking.
+
+Setup port spec below in the mapping dict.
+
+Copy file to /etc/libvirt/hooks/<your favorite name>
+
+chmod +x /etc/libvirt/hooks/<your favorite name>
+
+restart libvirt
+
+And it should work
+'''
+
 import sys
 import os
 
@@ -9,10 +29,17 @@ action=sys.argv[2]
 iptables='/sbin/iptables'
 
 mapping = {
-			'<guest name (as defined in xml)>': { 'ip': '<private ip>', 'publicip': '<public ip>', 'portmap': 'all' | {'<proto>': [(<host port>, <guest port>)], ...}}, 
+			'<guest name (as defined in xml)>': 
+			{ 
+				'ip': '<private ip>', 
+				'publicip': '<public ip>',
+				'portmap': 'all' | 
+				{
+					'<proto>': [(<host port>, <guest port>)], ...
+				}
+			},
 			...
 		}
-
 
 def rules(act, map_dict):
         if map_dict['portmap'] == 'all':
