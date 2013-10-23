@@ -1,5 +1,8 @@
 <?php
 
+$num_cores = 4;             // SET NUMBER OF CORES
+$hyperthreading = true;     // SET THIS TO TRUE IF CPU HAS INTEL HT
+
 ob_start();
 header("Status: 200 OK");
 header("Content-Type: text/plain");
@@ -15,7 +18,10 @@ else {
 echo "System Status: \n";
 echo "\tUptime: " . explode(", ", `uptime`)[0] . "\n";
 $load = sys_getloadavg();
-echo "\t1 minute load: " . $load[0] * 100 . "%\n";
-echo "\t5 minute load: " . $load[1] * 100 . "%\n";
-echo "\t15 minute loaad: " . $load[2] * 100 . "%\n";
+
+$multiplier = $hyperthreading ? 1.5 : 1;
+
+echo "\t1 minute load: " . round($load[0] * 100/($num_cores * $multiplier), 2) . "%\n";
+echo "\t5 minute load: " . round($load[1] * 100/($num_cores * $multiplier), 2) . "%\n";
+echo "\t15 minute loaad: " . round($load[2] * 100/($num_cores * $multiplier), 2) . "%\n";
 ob_flush();
