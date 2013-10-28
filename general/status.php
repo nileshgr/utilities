@@ -15,6 +15,9 @@ if($con->connect_errno) {
 else {
         echo "MySQL Success\n";
 }
+
+$con->close();
+
 echo "System Status: \n";
 echo "\tUptime: " . explode(", ", `uptime`)[0] . "\n";
 $load = sys_getloadavg();
