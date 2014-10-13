@@ -3,8 +3,8 @@
 tcp_service_ports="22 80"
 udp_service_ports=""
 
-out_tcp_ports="22 25 80 443 465 587"
-out_udp_ports="53"
+out_tcp_ports="22 25 53 80 443 465 587"
+out_udp_ports="53 123"
 
 allow_ftp=true
 
@@ -34,6 +34,7 @@ fi
 
 ipfw add 1 check-state
 ipfw add 100 allow all from any to any via lo0
+ipfw add 101 allow icmp6 from any to any icmp6types 133,134,135,136,137
 
 # allow icmp - destination not reachable (3) and TTL exceeded (11)
 ipfw add 300 allow icmp from any to me in icmptypes 3,11 via $interface
@@ -66,13 +67,13 @@ for port in $out_udp_ports; do
 done
 
 if $allow_ftp; then 
-	index=65532
+	index=65531
 	# FTP control port
 	ipfw add $index allow tcp from me to any 21 out via $interface setup keep-state
 
 	# Active FTP
-	ipfw add $((index+1)) allow tcp from any 20 to me 1024-65535 in via $interface setup keep-state
+	ipfw add $((index+1)) allow tcp from any 20 to me 49152-65535 in via $interface setup keep-state
 
 	# Passive FTP
-	ipfw add $((index+2)) allow tcp from me 1024-65535 to any 1024-65535 out via $interface setup keep-state
+	ipfw add $((index+2)) allow tcp from me 49152-65535 to any 49152-65535 out via $interface setup keep-state
 fi
