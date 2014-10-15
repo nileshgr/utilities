@@ -34,7 +34,7 @@ fi
 
 ipfw add 1 check-state
 ipfw add 100 allow all from any to any via lo0
-ipfw add 101 allow icmp6 from any to any icmp6types 133,134,135,136,137
+ipfw add 101 allow icmp6 from any to any
 
 # allow icmp - destination not reachable (3) and TTL exceeded (11)
 ipfw add 300 allow icmp from any to me in icmptypes 3,11 via $interface
