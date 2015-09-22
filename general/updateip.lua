@@ -1,5 +1,16 @@
 #!/usr/bin/lua
 
+-- For use with openwrt since openwrt supports LUA.
+-- Prerequisites:
+
+-- luasec
+-- luasocket
+-- libubus-lua
+-- json4lua
+
+-- I have a PPPoE connection so I just drop this script in /etc/ppp/ip-up.d
+-- You can run via crontab or put it in interface hotplug :)
+
 update_records = {"ddns"}
 domain_name = "domain.com"
 
