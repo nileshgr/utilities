@@ -96,7 +96,7 @@ ip = status["ipv4-address"][1]["address"]
 
 for _, record in pairs(records.result) do
 	for _, name in pairs(update_records) do
-		if name == record.name then
+		if name == record.name and record.content ~= ip then
 			record.content = ip
 			table.insert(update_records_1, record)
 		end
