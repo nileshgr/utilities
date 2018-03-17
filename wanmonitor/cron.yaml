@@ -1,0 +1,4 @@
+cron:
+  - description: "check connection status"
+    url: /checkisps
+    schedule: every 5 mins
