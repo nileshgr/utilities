@@ -19,6 +19,9 @@ type ISPInfo struct {
 	LastCheck  time.Time
 }
 
+var telegram_bot_token := "<<< bot token >>>"
+var telegram_chat_id := "<<< chat id >>>"
+
 func (i *ISPInfo) Check(r *http.Request) {
 	ctx := appengine.NewContext(r)
 
@@ -42,9 +45,9 @@ func (i *ISPInfo) SendAlert(r *http.Request, w http.ResponseWriter) {
 
 	message := fmt.Sprintf("%s is %s", i.Name, i.Status())
 	params := url.Values{}
-	url := "<<<telegram api url>>>"
+	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", telegram_bot_token)
 
-	params.Add("chat_id", "<<<chat id>>>")
+	params.Add("chat_id", telegram_chat_id)
 	params.Add("text", message)
 
 	response, err := client.PostForm(url, params)
